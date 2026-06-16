@@ -438,7 +438,7 @@
             </div>
 
             <!-- APK Download Button -->
-            <a href="https://github.com/thenomandev/thenomandev.github.io/releases/download/v1.1/CrayzillaIPTV_v1.1.apk" class="btn-download">
+            <a href="https://github.com/thenomandev/thenomandev.github.io/releases/download/v1.1/CrayzillaIPTV_v1.1.apk" class="btn-download" id="downloadBtn">
                 <i class="fa-solid fa-download"></i> Download Crayzilla IPTV APK
             </a>
 
@@ -584,44 +584,6 @@
             }
         }
 
-        // Real Download Analytics from GitHub Releases
-        async function loadAnalytics() {
-            let totalDownloads = 0;
-            try {
-                const response = await fetch('https://api.github.com/repos/thenomandev/thenomandev.github.io/releases');
-                const data = await response.json();
-                if(data && data.length > 0) {
-                    data.forEach(release => {
-                        if(release.assets && release.assets.length > 0) {
-                            totalDownloads += release.assets[0].download_count;
-                        }
-                    });
-                }
-            } catch (e) { totalDownloads = 0; }
-
-            // নতুন প্রজেক্টের জন্য বেস ডিফল্ট ভ্যালু নির্ধারণ (যেন খালি না দেখায়)
-            let finalDL = totalDownloads;
-            document.getElementById('total-dl').innerText = finalDL.toLocaleString();
-
-            // রিয়েল টাইম রেশিও অ্যানালিসিস ক্যালকুলেশন
-            document.getElementById('today-dl').innerText = 'N/A';
-document.getElementById('weekly-dl').innerText = 'N/A';
-document.getElementById('monthly-dl').innerText = 'N/A';
-
-            // রিয়াল ভিজিটর ট্র্যাকিং কাউন্টার ব্যাকআপ সহ
-            const trackerName = "thenomandev_live_visits";
-            try {
-                const visitResponse = await fetch(`https://api.countapi.xyz/hit/${trackerName}/counter`);
-                const visitData = await visitResponse.json();
-                document.getElementById('total-vs').innerText = visitData.value.toLocaleString();
-            } catch (e) {
-                document.getElementById('total-vs').innerText = 'N/A';
-            }
-        }
-
-        window.onload = function() {
-            loadAnalytics();
-        }
     </script>
 
     <!-- Start of Tawk.to Script -->
