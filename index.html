@@ -600,23 +600,22 @@
             } catch (e) { totalDownloads = 0; }
 
             // নতুন প্রজেক্টের জন্য বেস ডিফল্ট ভ্যালু নির্ধারণ (যেন খালি না দেখায়)
-            let finalDL = totalDownloads > 0 ? totalDownloads : 74;
+            let finalDL = totalDownloads;
             document.getElementById('total-dl').innerText = finalDL.toLocaleString();
 
             // রিয়েল টাইম রেশিও অ্যানালিসিস ক্যালকুলেশন
-            document.getElementById('today-dl').innerText = Math.max(2, Math.floor(finalDL * 0.09)).toLocaleString();
-            document.getElementById('weekly-dl').innerText = Math.max(8, Math.floor(finalDL * 0.38)).toLocaleString();
-            document.getElementById('monthly-dl').innerText = Math.max(15, Math.floor(finalDL * 0.78)).toLocaleString();
+            document.getElementById('today-dl').innerText = 'N/A';
+document.getElementById('weekly-dl').innerText = 'N/A';
+document.getElementById('monthly-dl').innerText = 'N/A';
 
             // রিয়াল ভিজিটর ট্র্যাকিং কাউন্টার ব্যাকআপ সহ
             const trackerName = "thenomandev_live_visits";
             try {
                 const visitResponse = await fetch(`https://api.countapi.xyz/hit/${trackerName}/counter`);
                 const visitData = await visitResponse.json();
-                document.getElementById('total-vs').innerText = (visitData.value + 165).toLocaleString();
+                document.getElementById('total-vs').innerText = visitData.value.toLocaleString();
             } catch (e) {
-                let simulatedVisitors = finalDL * 3 + 112;
-                document.getElementById('total-vs').innerText = simulatedVisitors.toLocaleString();
+                document.getElementById('total-vs').innerText = 'N/A';
             }
         }
 
